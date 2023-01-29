@@ -21,5 +21,7 @@ Comme on en a discuté hier, voici les informations pour que tu puisses démarre
 Voici les différentes tâches que tu vas devoir mener à bien :
 
 Unifier les travaux déjà réalisés par l’équipe en intégrant dynamiquement les éléments de l’API dans les différentes pages web avec JavaScript. Le code du front-end et de l’API vous est fourni depuis ce [repo](https://github.com/OpenClassrooms-Student-Center/P5-Dev-Web-Kanap).
+
 Mettre en place un plan de test d’acceptation à partir de ce template que nous avons pour habitude d’utiliser.
+
 Pour plus de précisions, voici les [spécifications techniques et fonctionnelles](assets/DWJ_FR_P5/DW+P5+-+Specifications+fonctionnelles.pdf) du projet. Tu pourras y trouver tous les détails de celui-ci, les attentes pour chaque page du site web et les détails de l’API. 
