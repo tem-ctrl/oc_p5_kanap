@@ -14,7 +14,7 @@ Vous êtes en poste dans une agence de développement web depuis quelques semain
 Votre client est Kanap, une marque de canapés qui vend ses produits depuis sa boutique exclusivement. Aujourd’hui, celle-ci souhaiterait avoir une plateforme de e-commerce en plus de sa boutique physique pour vendre ses produits sur Internet.
 Comme on en a discuté hier, voici les informations pour que tu puisses démarrer l’implémentation du site de Kanap de manière dynamique. 
 
-[!image](assets/logo.png)
+![image](./assets/logo.png)
 
 --------------------------- logo de Kanap ----------------------------------
 
