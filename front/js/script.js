@@ -8,33 +8,17 @@ fetch("http://localhost:3000/api/products")
 
   // Parse the response as JSON if request is successful
   .then((response) => response.json())
-
   .then((products) => {
 
-    // Browse all product and create their cards in listOfProducts section
-    for (let product of products){
-      
-      let productLink = document.createElement("a");
-      productLink.setAttribute("href", `product.html?id=${product._id}`);
-      listOfProducts.appendChild(productLink);
-
-      let productArticle = document.createElement("article");
-      productLink.appendChild(productArticle);
-
-      let productImg = document.createElement("img");
-      productImg.setAttribute("src", product.imageUrl);
-      productImg.setAttribute("alt", product.altTxt);
-      productArticle.appendChild(productImg);
-
-      let productName = document.createElement("h3");
-      productName.classList.add("productName");
-      productName.textContent = product.name;
-      productArticle.appendChild(productName);
-
-      let productDescription = document.createElement("p");
-      productDescription.classList.add("productDescription");
-      productDescription.textContent = product.description;
-      productArticle.appendChild(productDescription);
+    for (let elt of products) {
+      let productCard = `<a href="./product.html?id=${elt.id}">
+        <article>
+          <img src="${elt.imageUrl}" alt="${elt.altTxt}">
+          <h3 class="productName">${elt.name}</h3>
+          <p class="productDescription">${elt.description}</p>
+        </article>
+      </a>`
+      listOfProducts.insertAdjacentHTML('beforeend', productCard)
     }
   })
   //  If request fails, log the error message to console and display an apology message on the page
