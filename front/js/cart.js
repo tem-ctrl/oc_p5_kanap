@@ -24,7 +24,7 @@ const apiUrlPost = "http://localhost:3000/api/products/order";
 
 // fetch all product in cart and display them on cart page
 for (let product of cart) {
- 
+
   // get product id, color and quantity
   let productId = product.id;
   let productColor = product.color;
@@ -32,18 +32,18 @@ for (let product of cart) {
   let apiUrlGet = `http://localhost:3000/api/products/${productId}`;
 
   fetch(apiUrlGet)
-   
-  // if request succeeds
+
+    // if request succeeds
     .then((response) => response.json())
     .then((productData) => {
-     
+
       // create product article tag with suitable attributes into itemList section
       let productArticle = document.createElement("article");
       productArticle.classList.add("cart__item");
       productArticle.setAttribute("data-id", productId);
       productArticle.setAttribute("data-color", productColor);
       cartItems.appendChild(productArticle);
-     
+
       // create product image container as div tag inside product article
       let productImgContainer = document.createElement("div");
       productImgContainer.classList.add("cart__item__img");
@@ -54,42 +54,42 @@ for (let product of cart) {
       productImg.setAttribute("src", productData.imageUrl);
       productImg.setAttribute("alt", productData.altTxt);
       productImgContainer.appendChild(productImg);
-     
+
       // product content div
       let productContent = document.createElement("div");
       productContent.classList.add("cart__item__content");
       productArticle.appendChild(productContent);
-     
+
       // product content description as div tag
       let productContentDescription = document.createElement("div");
       productContentDescription.classList.add("cart__item__content__description");
       productContent.appendChild(productContentDescription);
-   
+
       // product name in h2 tag
       let productName = document.createElement("h2");
       productName.textContent = productData.name;
       productContentDescription.appendChild(productName);
-     
+
       // create p tag for product color
       let choosedProductColor = document.createElement("p");
       choosedProductColor.textContent = productColor;
       productContentDescription.appendChild(choosedProductColor);
-     
+
       // another p tag for product price
       let productPrice = document.createElement("p");
       productPrice.textContent = `${productData.price} €`;
       productContentDescription.appendChild(productPrice);
-     
+
       // create product content settings div
       let productContentSettings = document.createElement("div");
       productContentSettings.classList.add("cart__item__content__settings");
       productContent.appendChild(productContentSettings);
-     
+
       // product quantity settings div
       let productQuantitySettings = document.createElement("div");
       productQuantitySettings.classList.add("cart__item__content__settings__quantity");
       productContentSettings.appendChild(productQuantitySettings);
-     
+
       // p tag to hold product quantity input label
       let ProductQuantityInputLabel = document.createElement("p");
       ProductQuantityInputLabel.textContent = "Qté : ";
@@ -98,7 +98,7 @@ for (let product of cart) {
       // product quantity input
       let productQuantityInput = document.createElement("input");
 
-        let attrObj = {
+      let attrObj = {
         "type": "number",
         "name": "itemQuantity",
         "min": 1,
@@ -107,23 +107,23 @@ for (let product of cart) {
       };
 
       // add attributes and their values
-      for (let attr of Object.keys(attrObj)){
+      for (let attr of Object.keys(attrObj)) {
         productQuantityInput.setAttribute(attr, attrObj[attr]);
       }
       productQuantityInput.classList.add("itemQuantity");
       productQuantitySettings.appendChild(productQuantityInput);
-     
+
       // div tag to contain paragraph with text "Supprimer"
       let removeProduct = document.createElement("div");
       removeProduct.classList.add("cart__item__content__settings__delete");
       productContentSettings.appendChild(removeProduct);
-     
+
       // create p tag for text "supprimer"
       let removeProductText = document.createElement("p");
       removeProductText.classList.add("deleteItem");
       removeProductText.textContent = "Supprimer";
       removeProduct.appendChild(removeProductText);
-      
+
       updateCartDisplay();
 
       // listen for click on this text, to remove the product from cart
@@ -132,10 +132,10 @@ for (let product of cart) {
         productArticle.remove();
         updateCartDisplay();
       });
-     
+
       // listen to changes on product quantity input
       productQuantityInput.addEventListener("change", () => {
-        if (Number(productQuantityInput.value) <= 0){
+        if (Number(productQuantityInput.value) <= 0) {
           let product = productQuantityInput.closest(".cart__item").dataset;
           productQuantityInput.closest(".cart__item").remove();
           removeFromCart(product);
@@ -143,7 +143,7 @@ for (let product of cart) {
         updateCartDisplay();
       });
     })
-   
+
     // if request fails
     .catch((error) => {
       console.log("Une erreur s'est produite : ", error);
@@ -151,7 +151,7 @@ for (let product of cart) {
       cartErrorMsg.textContent = "L'article sélectionné n'est pas disponible pour le moment.";
       cartErrorMsg.style.cssText = "text-align:center;padding:15px;";
       cartItems.appendChild(cartErrorMsg);
-     
+
       totalDisplay.textContent = "Impossible de passer la commande, veuillez réessayer ultérieurement";
       totalDisplay.style.textAlign = "center";
       orderForm.style.display = "none";
@@ -201,7 +201,7 @@ for (let product of cart) {
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
- 
+
   let contact = {
     firstName: form.firstName.value,
     lastName: form.lastName.value,
@@ -209,24 +209,22 @@ form.addEventListener("submit", (event) => {
     city: form.city.value,
     email: form.email.value,
   };
- 
+
   fetch(apiUrlPost, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({contact, products})
+    body: JSON.stringify({ contact, products })
   })
-   
+
     .then((response) => response.json())
-   
+
     .then((orderDetails) => {
-      console.log("Formulaire envoyé avec succès!!!");
-     
+
       let orderId = orderDetails.orderId;
       let confirmationUrl = `confirmation.html?id=${orderId}`;
 
-      console.log(orderId);
       if (orderId) {
 
         // open confirmation page
