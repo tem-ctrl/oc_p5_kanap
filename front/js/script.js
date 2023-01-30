@@ -1,10 +1,8 @@
 // Fetch product list from the api and dynamically display them on the landing page
-
-// Constants
 const listOfProducts = document.getElementById("items");
 
 // Request the list of products from the api using fetch
-fetch("http://localhost:3000/api/products")
+fetch("http://localhost:3000/api/product")
 
   // Parse the response as JSON if request is successful
   .then((response) => response.json())
@@ -24,12 +22,6 @@ fetch("http://localhost:3000/api/products")
   //  If request fails, log the error message to console and display an apology message on the page
   .catch((error) => {
     console.log("Une erreur s'est produite : ", error);
-
-    let apologyMsg = document.createElement("h2");
-    apologyMsg.innerHTML = "Impossible d'afficher le catalogue de canapés pour le moment. \
-    <br>Veuillez réessayer ultérieurement!";
-
-    apologyMsg.style.cssText = "text-align:center;width:80%;margin:auto;font-size:20px";
-
-    listOfProducts.appendChild(apologyMsg);
+    listOfProducts.insertAdjacentHTML('beforeend', `<h2 style="text-align:center;width:80%;margin:auto;font-size:20px;">
+    Impossible d'afficher le catalogue de canapés pour le moment.<br>Veuillez réessayer ultérieurement!</h2>`)
   });
