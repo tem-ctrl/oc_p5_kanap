@@ -1,6 +1,4 @@
-# oc_p5_kanap
-Projet 5, parcours Développeur Web, OpenClassrooms
-
+# Projet: Construisez un site de e-commerce en JavaScript
 
 # Compétences évaluées
 - Créer un plan de test pour une application
