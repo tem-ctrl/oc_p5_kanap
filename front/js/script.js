@@ -2,14 +2,14 @@
 const listOfProducts = document.getElementById("items");
 
 // Request the list of products from the api using fetch
-fetch("http://localhost:3000/api/product")
+fetch("http://localhost:3000/api/products")
 
   // Parse the response as JSON if request is successful
   .then((response) => response.json())
   .then((products) => {
 
     for (let elt of products) {
-      let productCard = `<a href="./product.html?id=${elt.id}">
+      let productCard = `<a href="./product.html?id=${elt._id}">
         <article>
           <img src="${elt.imageUrl}" alt="${elt.altTxt}">
           <h3 class="productName">${elt.name}</h3>

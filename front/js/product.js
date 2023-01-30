@@ -14,6 +14,7 @@ const addToCartButton = document.getElementById("addToCart");
 var quantity = document.getElementById("quantity");
 
 let productId = new URL(document.location).searchParams.get("id");
+console.log(document.location.href)
 
 // Fetch product data
 fetch(`http://localhost:3000/api/products/${productId}`)
@@ -25,33 +26,25 @@ fetch(`http://localhost:3000/api/products/${productId}`)
     let productDataName = productData.name;
     pageTitle.textContent = productDataName;
 
-    let productImg = document.createElement("img");
-    productImg.setAttribute("src", productData.imageUrl);
-    productImg.setAttribute("alt", productData.altTxt);
-    productImgContainer.appendChild(productImg);
+    productImgContainer.insertAdjacentHTML('beforeend', `<img src="${productData.imageUrl}" alt="${productData.altTxt}">`)
 
     productName.textContent = productDataName;
     productPrice.textContent = productData.price;
     productDescription.textContent = productData.description;
 
-    // let productDataColors = productData.colors;
+    // Add color options
+    console.log(productData)
     for (let color of productData.colors) {
-      let colorOption = document.createElement("option");
-      colorOption.setAttribute("value", color);
-      colorOption.textContent = color;
-      productColors.appendChild(colorOption);
+      let colorOption = `<option value="${color}">${color}</option>`
+      productColors.insertAdjacentHTML('beforeend', colorOption)
     }
   })
-  
-  .catch((error) => {
-    console.log("Une erreur s'est produite : ",  error);
-    productSection.removeChild(productArticle);
 
-    let apologyMsg = document.createElement("h2");
-    apologyMsg.innerHTML = "Impossible d'afficher le canapé sélectionné pour le moment. \
-    <br>Veuillez réessayer ultérieurement!";
-    apologyMsg.style.cssText = "text-align:center; width:80%; margin-:auto;";
-    productSection.appendChild(apologyMsg);
+  .catch((error) => {
+    console.log("Une erreur s'est produite : ", error);
+    productSection.removeChild(productArticle);
+    productSection.insertAdjacentHTML('beforeend', `<h2 style="text-align:center;width:80%;margin:auto;">
+    Impossible d'afficher le canapé sélectionné pour le moment. <br>Veuillez réessayer ultérieurement!</h2>`)
   });
 
 // Get updated list of product colors
@@ -95,7 +88,7 @@ function saveCart(cart) {
 function getCart() {
   let cart = localStorage.getItem("cart");
   // return cart as array of objects (products) if not empty
-  if (cart !== null) {
+  if (cart) {
     return JSON.parse(cart);
   } else {
     //  otherwise return empty array
