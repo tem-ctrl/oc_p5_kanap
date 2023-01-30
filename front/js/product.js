@@ -14,7 +14,6 @@ const addToCartButton = document.getElementById("addToCart");
 var quantity = document.getElementById("quantity");
 
 let productId = new URL(document.location).searchParams.get("id");
-console.log(document.location.href)
 
 // Fetch product data
 fetch(`http://localhost:3000/api/products/${productId}`)
@@ -33,7 +32,6 @@ fetch(`http://localhost:3000/api/products/${productId}`)
     productDescription.textContent = productData.description;
 
     // Add color options
-    console.log(productData)
     for (let color of productData.colors) {
       let colorOption = `<option value="${color}">${color}</option>`
       productColors.insertAdjacentHTML('beforeend', colorOption)
